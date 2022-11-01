@@ -24,7 +24,7 @@ class MoviesViewController: UIViewController {
 // MARK: - Actions
 extension MoviesViewController {
     @IBAction func categoryAction(_ sender: UISegmentedControl) {
-//        self.fetchMovies(category: self.selectedCategory)
+        self.fetchMovies(category: self.selectedCategory)
     }
 }
 // MARK: - Private Methods

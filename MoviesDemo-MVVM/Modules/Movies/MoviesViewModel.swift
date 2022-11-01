@@ -6,3 +6,9 @@
 //
 
 import Foundation
+import Combine
+
+class MoviesViewModel {
+    @Published var movies = []
+    
+}
