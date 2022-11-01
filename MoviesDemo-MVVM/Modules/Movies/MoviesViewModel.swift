@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 class MoviesViewModel {
-    @Published var movies = []
+    @Published var movies: [Movie] = []
 
     var moviesService = MoviesService()
 

@@ -8,6 +8,7 @@
 //
 
 import UIKit
+import Combine
 
 class MoviesViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
@@ -16,8 +17,9 @@ class MoviesViewController: UIViewController {
     @IBOutlet weak var progressView: UIView!
 
     var viewModel: MoviesViewModel!
+    private var subscribers: [AnyCancellable] = []
 
-//    var movies: [Movie]? = nil
+    var movies: [Movie] = []
 	override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -32,37 +34,53 @@ extension MoviesViewController {
         self.fetchMovies(category: self.selectedCategory)
     }
 }
-// MARK: - Private Methods
+// MARK: - Private Methods/Properties
 extension MoviesViewController {
-    private func setup() {
-        viewModel = MoviesViewModel()
-    }
-
-    private func fetchMovies(category: Category) {
-        viewModel.fetchMovies(category)
-    }
-
     private var selectedCategory: Category {
         get {
             return Category(rawValue: segmentedControl.selectedSegmentIndex) ?? .popular
         }
     }
+    private func setup() {
+        viewModel = MoviesViewModel()
+        viewModel.$movies.sink { [weak self] movies in
+            DispatchQueue.main.async {
+                self?.movies = movies
+                self?.updateView()
+            }
+        }.store(in: &subscribers)
+    }
+
+    private func fetchMovies(category: Category) {
+        showProgress()
+        viewModel.fetchMovies(category)
+    }
+
+    private func showProgress() {
+        self.view.isUserInteractionEnabled = false
+        self.progressView.isHidden = false
+    }
+
+    private func hideProgress() {
+        self.view.isUserInteractionEnabled = true
+        self.progressView.isHidden = true
+    }
+
+    private func updateView() {
+        hideProgress()
+        tableView.reloadData()
+    }
 }
 // MARK: - TableView DataSource
 extension MoviesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        15
-//        if let movies = self.movies {
-//            return movies.count
-//        }
-//        return 0
+        movies.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        UITableViewCell()
-//        let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.movieTableViewCell.rawValue) as! MovieTableViewCell
-//        cell.displayContents(of: self.movies![indexPath.row])
-//        return cell
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.movieTableViewCell.rawValue) as! MovieTableViewCell
+        cell.displayContents(of: self.movies[indexPath.row])
+        return cell
     }
 }
 // MARK: - TableView Delegate
