@@ -14,12 +14,17 @@ class MoviesViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var progressView: UIView!
+
+    var viewModel: MoviesViewModel!
+
 //    var movies: [Movie]? = nil
 	override func viewDidLoad() {
         super.viewDidLoad()
+        setup()
         fetchMovies(category: .topRated)
     }
 }
+
 
 // MARK: - Actions
 extension MoviesViewController {
@@ -29,7 +34,12 @@ extension MoviesViewController {
 }
 // MARK: - Private Methods
 extension MoviesViewController {
+    private func setup() {
+        viewModel = MoviesViewModel()
+    }
+
     private func fetchMovies(category: Category) {
+        viewModel.fetchMovies(category)
     }
 
     private var selectedCategory: Category {
