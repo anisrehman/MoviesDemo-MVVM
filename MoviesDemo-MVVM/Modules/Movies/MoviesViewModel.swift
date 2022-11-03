@@ -13,6 +13,10 @@ class MoviesViewModel {
 
     var moviesService = MoviesService()
 
+    init() {
+        DependencyContainer.shared.register(type: MovieStoring.self, value: MovieRepository(), overwrite: false)
+    }
+    
     func fetchMovies(_ category: Category) {
         moviesService.fetchMovies(category) { [weak self] movies, error in
             guard let weakSelf = self else { return }
@@ -25,6 +29,16 @@ class MoviesViewModel {
                 self?.movies = movies
             }
         }
+    }
+
+    func searchMovies(text: String, category: Category) {
+        let movieRepository = DependencyContainer.shared.get(MovieStoring.self)
+        movies = movieRepository?.searchMovies(text: text, category: category) ?? []
+    }
+
+    func clearSearch(category: Category) {
+        let movies = moviesFromDB(category: category)
+        self.movies = movies
     }
 
     private func moviesFromDB(category: Category) -> [Movie] {

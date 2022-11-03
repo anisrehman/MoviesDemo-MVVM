@@ -23,7 +23,7 @@ class MoviesViewController: UIViewController {
 	override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        fetchMovies(category: .topRated)
+        fetchMovies(category: .popular)
     }
 }
 
@@ -41,6 +41,7 @@ extension MoviesViewController {
             return Category(rawValue: segmentedControl.selectedSegmentIndex) ?? .popular
         }
     }
+    
     private func setup() {
         viewModel = MoviesViewModel()
         viewModel.$movies.sink { [weak self] movies in
@@ -52,6 +53,7 @@ extension MoviesViewController {
     }
 
     private func fetchMovies(category: Category) {
+        clearSearch()
         showProgress()
         viewModel.fetchMovies(category)
     }
@@ -69,6 +71,13 @@ extension MoviesViewController {
     private func updateView() {
         hideProgress()
         tableView.reloadData()
+    }
+
+    private func clearSearch() {
+        self.searchBar.text = ""
+        self.searchBar.resignFirstResponder()
+        self.movies = []
+        self.tableView.reloadData();
     }
 }
 // MARK: - TableView DataSource
@@ -91,29 +100,20 @@ extension MoviesViewController: UITableViewDataSource {
 //    }
 //}
 //
-//// MARK: - SearchBar Delegate
-//extension MoviesViewController: UISearchBarDelegate {
-//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        if searchText == "" {
-//            presenter?.clearSearch(category: self.selectedCategory)
-//        } else {
-//            presenter?.searchMovies(text: searchText, category: self.selectedCategory)
-//        }
-//    }
-//}
+
+// MARK: - SearchBar Delegate
+extension MoviesViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText == "" {
+            viewModel.clearSearch(category: self.selectedCategory)
+        } else {
+            viewModel.searchMovies(text: searchText, category: self.selectedCategory)
+        }
+    }
+}
 
 // MARK: - MoviesViewProtocol
 //extension MoviesViewController: MoviesViewable {
-//    func showProgress() {
-//        self.view.isUserInteractionEnabled = false
-//        self.progressView.isHidden = false
-//    }
-//
-//    func hideProgress() {
-//        self.view.isUserInteractionEnabled = true
-//        self.progressView.isHidden = true
-//    }
-//
 //    func clearMoviesList() {
 //        self.searchBar.text = ""
 //        self.searchBar.resignFirstResponder()
