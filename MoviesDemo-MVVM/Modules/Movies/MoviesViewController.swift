@@ -17,6 +17,7 @@ class MoviesViewController: UIViewController {
     @IBOutlet weak var progressView: UIView!
 
     var viewModel: MoviesViewModel!
+    var router: MoviesRouter!
     private var subscribers: [AnyCancellable] = []
 
     var movies: [Movie] = []
@@ -43,6 +44,9 @@ extension MoviesViewController {
     }
     
     private func setup() {
+        router = MoviesRouter(navigationController: { [weak self] in
+            self?.navigationController
+        })        
         viewModel = MoviesViewModel()
         viewModel.$movies.sink { [weak self] movies in
             DispatchQueue.main.async {
@@ -93,13 +97,13 @@ extension MoviesViewController: UITableViewDataSource {
     }
 }
 // MARK: - TableView Delegate
-//extension MoviesViewController: UITableViewDelegate {
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        self.presenter?.showMovieDetails(movie: self.movies![indexPath.row])
-//        tableView.deselectRow(at: indexPath, animated: true)
-//    }
-//}
-//
+extension MoviesViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.router.routeToMovieDetails(movie: self.movies[indexPath.row])
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
 
 // MARK: - SearchBar Delegate
 extension MoviesViewController: UISearchBarDelegate {
