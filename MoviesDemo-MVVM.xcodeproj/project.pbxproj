@@ -24,6 +24,7 @@
 		91085F42290FEE3C004C921D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91085F35290FEE3C004C921D /* Constants.swift */; };
 		91085F44290FEE83004C921D /* CoreDataEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91085F43290FEE83004C921D /* CoreDataEntity.swift */; };
 		91085F472910084F004C921D /* MoviesDemo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 91085F452910084F004C921D /* MoviesDemo.xcdatamodeld */; };
+		91451994291E964400817349 /* MainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91451993291E964400817349 /* MainRouter.swift */; };
 		916E78792910D1B200833403 /* MoviesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916E78782910D1B100833403 /* MoviesViewModel.swift */; };
 		916E787C2911069C00833403 /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916E787B2911069C00833403 /* MovieTableViewCell.swift */; };
 		9183EC5E290D644600980657 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9183EC5D290D644600980657 /* AppDelegate.swift */; };
@@ -57,6 +58,7 @@
 		91085F35290FEE3C004C921D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		91085F43290FEE83004C921D /* CoreDataEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataEntity.swift; sourceTree = "<group>"; };
 		91085F462910084F004C921D /* MoviesDemo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MoviesDemo.xcdatamodel; sourceTree = "<group>"; };
+		91451993291E964400817349 /* MainRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRouter.swift; sourceTree = "<group>"; };
 		916E78782910D1B100833403 /* MoviesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesViewModel.swift; sourceTree = "<group>"; };
 		916E787B2911069C00833403 /* MovieTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
 		9183EC5A290D644600980657 /* MoviesDemo-MVVM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MoviesDemo-MVVM.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -208,6 +210,7 @@
 				91085EFA290FB6E8004C921D /* Modules */,
 				9183EC5D290D644600980657 /* AppDelegate.swift */,
 				9183EC5F290D644600980657 /* SceneDelegate.swift */,
+				91451993291E964400817349 /* MainRouter.swift */,
 				9183EC63290D644600980657 /* Main.storyboard */,
 				9183EC69290D644600980657 /* Assets.xcassets */,
 				9183EC6B290D644600980657 /* LaunchScreen.storyboard */,
@@ -299,6 +302,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				91085F37290FEE3C004C921D /* APIRouter.swift in Sources */,
+				91451994291E964400817349 /* MainRouter.swift in Sources */,
 				91085EFD290FB711004C921D /* MoviesViewController.swift in Sources */,
 				91085F3F290FEE3C004C921D /* DatabaseManager.swift in Sources */,
 				91085F3A290FEE3C004C921D /* StringExtension.swift in Sources */,
