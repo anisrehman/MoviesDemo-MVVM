@@ -44,10 +44,6 @@ extension MoviesViewController {
     }
     
     private func setup() {
-        router = MoviesRouter(navigationController: { [weak self] in
-            self?.navigationController
-        })        
-        viewModel = MoviesViewModel()
         viewModel.$movies.sink { [weak self] movies in
             DispatchQueue.main.async {
                 self?.movies = movies
@@ -115,26 +111,3 @@ extension MoviesViewController: UISearchBarDelegate {
         }
     }
 }
-
-// MARK: - MoviesViewProtocol
-//extension MoviesViewController: MoviesViewable {
-//    func clearMoviesList() {
-//        self.searchBar.text = ""
-//        self.searchBar.resignFirstResponder()
-//        self.movies = []
-//        self.tableView.reloadData();
-//    }
-//
-//    func displayMovies(_ movies: [Movie]) {
-//        self.hideProgress()
-//        self.movies = movies
-//        self.tableView.reloadData()
-//    }
-//
-//    func showError(_ error: Error) {
-//        self.hideProgress()
-//        let alertViewController = UIAlertController(title: "", message: error.localizedDescription, preferredStyle: .alert)
-//        alertViewController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-//        self.present(alertViewController, animated: true, completion: nil)
-//    }
-//}

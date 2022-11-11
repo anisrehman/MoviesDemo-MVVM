@@ -15,8 +15,6 @@ protocol MoviesRoutable: AnyObject {
 }
 
 class MoviesRouter: MoviesRoutable {
-    // To avoid circular reference, use a closure that gets UINavigationController
-    // It will help us to avoid weak circular reference
     var getNavigationController: () -> UINavigationController?
     required init(navigationController: @escaping () -> UINavigationController?) {
         self.getNavigationController = navigationController
