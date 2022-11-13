@@ -206,11 +206,11 @@
 		9183EC5C290D644600980657 /* MoviesDemo-MVVM */ = {
 			isa = PBXGroup;
 			children = (
-				91085F20290FD31C004C921D /* Common */,
-				91085EFA290FB6E8004C921D /* Modules */,
 				9183EC5D290D644600980657 /* AppDelegate.swift */,
 				9183EC5F290D644600980657 /* SceneDelegate.swift */,
 				91451993291E964400817349 /* MainRouter.swift */,
+				91085F20290FD31C004C921D /* Common */,
+				91085EFA290FB6E8004C921D /* Modules */,
 				9183EC63290D644600980657 /* Main.storyboard */,
 				9183EC69290D644600980657 /* Assets.xcassets */,
 				9183EC6B290D644600980657 /* LaunchScreen.storyboard */,

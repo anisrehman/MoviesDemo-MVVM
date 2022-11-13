@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
         let mainRouter = MainRouter(navigationController: navigationViewController)
-        mainRouter.setupRouter()
+        mainRouter.start()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

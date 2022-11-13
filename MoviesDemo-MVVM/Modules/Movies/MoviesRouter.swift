@@ -10,14 +10,14 @@
 import UIKit
 
 protocol MoviesRoutable: AnyObject {
-    init(navigationController: @escaping () -> UINavigationController?)
+    init(navigationController: UINavigationController?)
     func routeToMovieDetails(movie: Movie)
 }
 
 class MoviesRouter: MoviesRoutable {
-    var getNavigationController: () -> UINavigationController?
-    required init(navigationController: @escaping () -> UINavigationController?) {
-        self.getNavigationController = navigationController
+    var navigationController: UINavigationController?
+    required init(navigationController: UINavigationController?) {
+        self.navigationController = navigationController
     }
 
     func routeToMovieDetails(movie: Movie) {
@@ -25,8 +25,9 @@ class MoviesRouter: MoviesRoutable {
 
         let storyBoard = UIStoryboard(name: Storyboard.main.rawValue, bundle: nil)
         let movieDetailsViewController = storyBoard.instantiateViewController(identifier: StoryboardID.movieDetailsViewController.rawValue) as! MovieDetailsViewController
-        movieDetailsViewController.title = "Movie Details"
         movieDetailsViewController.viewModel = viewModel
-        getNavigationController()?.pushViewController(movieDetailsViewController, animated: true)
+
+        movieDetailsViewController.title = "Movie Details"
+        navigationController?.pushViewController(movieDetailsViewController, animated: true)
     }
 }

@@ -11,7 +11,7 @@ import UIKit
 protocol MainRoutable {
     init(navigationController: UINavigationController)
     var navigationController: UINavigationController { get set }
-    func setupRouter()
+    func start()
 }
 
 class MainRouter: MainRoutable {
@@ -20,13 +20,11 @@ class MainRouter: MainRoutable {
         self.navigationController = navigationController
     }
 
-    func setupRouter() {
+    func start() {
         guard let viewController = navigationController.topViewController as? MoviesViewController else {
             fatalError("Top ViewController should be instance of MoviesViewController")
         }
         viewController.viewModel = MoviesViewModel()
-        viewController.router = MoviesRouter(navigationController: {
-            return viewController.navigationController
-        })
+        viewController.router = MoviesRouter(navigationController: viewController.navigationController)
     }
 }
