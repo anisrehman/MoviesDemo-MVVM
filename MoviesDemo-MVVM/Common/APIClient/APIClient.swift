@@ -24,12 +24,8 @@ extension APIError: LocalizedError {
 // This class is used to handle API call to server.
 class APIClient {
     // Sends API call. If there is error from server, it parses it.
-    static func sendRequest<T: Decodable>(router: APIRouter, type: T.Type,  completion: @escaping (T?, Error?) -> Void) {
-        // Get urlRequest object from APIRouter
-        guard let urlRequest = router.asURLRequest() else {
-            return
-        }
-        let dataTask = URLSession.shared.dataTask(with: urlRequest) { (data, urlResponse, error) in
+    static func sendRequest<T: Decodable>(request: URLRequest, type: T.Type,  completion: @escaping (T?, Error?) -> Void) {
+        let dataTask = URLSession.shared.dataTask(with: request) { (data, urlResponse, error) in
 
             if let error = error {
                 //Send error in completion block
